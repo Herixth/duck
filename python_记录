@@ -1,0 +1,91 @@
+<>*************************************************
+简单数据结构
+
+列表[] 可变
+元组() 不可变
+
+list 以时间换空间
+dict 以空间换时间
+
+list []: 有序 可变
+   .append(ele)      末尾追加ele
+   .insert(idx, ele) 在下标为idx的位置插入ele
+   .pop(idx)         删除idx位置的元素, idx为空删除末尾
+   len(list)         获取list长度
+
+tuple (): 有序 不可变
+   len(tuple) 获取tuple长度
+
+dict {}: 无序 可变
+   .get(key, msg)    获取某个key对应的value,如果keyb不存在返回msg(msg为空返回None)
+   .keys()           以list的形式返回所有key
+   .values           以list的形式返回所有value
+   .items            以tuple的list形式返回所有键值对
+   len(dict)         获取键值对个数
+
+set (): 无序 可变 用于集合运算 自动去重
+	.add(ele) 增加元素
+	len(set)  获取元素个数
+<>*************************************************
+函数
+
+不定长参数: def fun(s, *arg):
+
+<>*************************************************
+类
+
+构造函数 __init__
+私有成员 __ele
+
+实例方法
+    self
+
+<>*************************************************
+模块
+    import imp_ele:
+        imp_ele.ele 来调用ele
+    from imp_ele import ele
+    	直接调用ele
+    未在同一目录下:
+    import sys
+    sys.path.append('path')
+    import ele
+
+<>*************************************************
+字符串处理
+
+	.find(ele) 返回角标 未找到返回-1
+	.split(ele) 以ele做标准分割str成list返回
+	.upper() 返回大写处理后的字符串 字符串本身不变
+	.lower() 返回小写处理后的字符串 字符串本身不变
+	.strip() 去掉str开头和结尾的' '并以str形式返回
+	.replace(ele_ori, ele_new) 将str中原有元素ele_ori换成ele_new并以str形式返回
+
+	fir and last 都为正
+	str[fir:last] 截取str中下标从fir到last的元素返回str 左闭右开
+	str[fir:] 从fir下标截到末尾
+	str[:last] 从开始截到last
+	str[fir::ele] 从fir开始每隔ele取一次 ele = 1则相当于遍历str
+	str[ele::] 相当于str[fir:]
+	不符合条件返回空
+	last 可以为负 表示从后往前
+	特别的 str[fir::-1] 表示将前fir元素反转
+	str[::-1]将元素反转
+
+	已知list 要求元素全为str
+	ele.join(list) 以ele字符为节点连接所有list元素为字符串并以str形式返回
+
+	多个分隔符分割用re模块
+	import re
+	re.split('[ele_fele_s]', str) ele_f, ele_s 为分割标识
+
+<>*************************************************
+文件读写
+
+	用file = open(file_name)打开文件 存到实例file里
+	file.close() 关闭文件
+	file.read() 将file文件内容以str形式返回 返回内容大
+	file.readlines(size) 将文件内容按size大小一次一次读 返回list
+
+	file.writelines(list) list元素为str
+	file.write(str)
