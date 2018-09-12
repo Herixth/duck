@@ -146,6 +146,20 @@ bool week_pick(int year, int mon, int day) {
 
 }
 
+string int_to_string(int num) {
+	string nums;
+	if (num == 0) {
+		nums = "0";
+		return nums;
+	}
+	while (num) {
+		nums.append(1, char('0' + num % 10));
+		num /= 10;
+	}
+	reverse(nums.begin(), nums.end());
+	return nums;
+}
+
 void read_command(int order) {
 	string commline;
 	getline(cin, commline);
@@ -200,29 +214,15 @@ void read_command(int order) {
 					for (IT hour_it = group[1].begin(); hour_it != group[1].end(); hour_it ++) { //HH
 						
 						for (IT min_it = group[0].begin(); min_it != group[0].end(); min_it ++) { //MM
-							itoa(years, modu, 10);
-							string lines = string(modu);
-							if (*mon_it < 10) lines.append("0");
-							itoa(*mon_it, modu, 10);
-							lines += string(modu);
-							if (*day_it < 10) lines.append("0");
-							itoa(*day_it, modu, 10);
-							lines += string(modu);
-							if (*hour_it < 10) lines.append("0");
-							itoa(*hour_it, modu, 10);
-							lines += string(modu);
-							if (*min_it < 10) lines.append("0");
-							itoa(*min_it, modu, 10);
-							lines += string(modu);
-// 							string lines = to_string(years);
-// 							if (*mon_it < 10) lines.append("0");
-// 							lines += to_string(*mon_it);
-// 							if (*day_it < 10) lines.append("0");
-// 							lines += to_string(*day_it);
-// 							if (*hour_it < 10) lines.append("0");
-// 							lines += to_string(*hour_it);
-// 							if (*min_it < 10) lines.append("0");
-// 							lines += to_string(*min_it);
+ 							string lines = int_to_string(years);
+ 							if (*mon_it < 10) lines.append("0");
+ 							lines += int_to_string(*mon_it);
+ 							if (*day_it < 10) lines.append("0");
+ 							lines += int_to_string(*day_it);
+ 							if (*hour_it < 10) lines.append("0");
+ 							lines += int_to_string(*hour_it);
+ 							if (*min_it < 10) lines.append("0");
+ 							lines += int_to_string(*min_it);
 							if (lines >= begin_ && lines < end_)
 							records[Commandline(lines, order)] = commands;
 							//MM
