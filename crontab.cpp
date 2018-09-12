@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 #include <map>
 #include <cmath>
 #include <string>
@@ -199,15 +200,29 @@ void read_command(int order) {
 					for (IT hour_it = group[1].begin(); hour_it != group[1].end(); hour_it ++) { //HH
 						
 						for (IT min_it = group[0].begin(); min_it != group[0].end(); min_it ++) { //MM
-							string lines = to_string(years);
+							itoa(years, modu, 10);
+							string lines = string(modu);
 							if (*mon_it < 10) lines.append("0");
-							lines += to_string(*mon_it);
+							itoa(*mon_it, modu, 10);
+							lines += string(modu);
 							if (*day_it < 10) lines.append("0");
-							lines += to_string(*day_it);
+							itoa(*day_it, modu, 10);
+							lines += string(modu);
 							if (*hour_it < 10) lines.append("0");
-							lines += to_string(*hour_it);
+							itoa(*hour_it, modu, 10);
+							lines += string(modu);
 							if (*min_it < 10) lines.append("0");
-							lines += to_string(*min_it);
+							itoa(*min_it, modu, 10);
+							lines += string(modu);
+// 							string lines = to_string(years);
+// 							if (*mon_it < 10) lines.append("0");
+// 							lines += to_string(*mon_it);
+// 							if (*day_it < 10) lines.append("0");
+// 							lines += to_string(*day_it);
+// 							if (*hour_it < 10) lines.append("0");
+// 							lines += to_string(*hour_it);
+// 							if (*min_it < 10) lines.append("0");
+// 							lines += to_string(*min_it);
 							if (lines >= begin_ && lines < end_)
 							records[Commandline(lines, order)] = commands;
 							//MM
