@@ -24,7 +24,8 @@ struct Commandline {
 	Commandline (string line, int order) : line(line), order(order) { }
 
 	bool operator < (const Commandline obj) const {
-		return this->line < obj.line || (this->line == obj.line && this->order < obj.order);
+		return this->line < obj.line || (this->line == obj.line && this->order < o
+bj.order);
 	}
 };
 
@@ -82,14 +83,16 @@ void read_parts(string &parts, int li) {
 			int bb = 0;
 			int cc = 0;
 			if (isalpha(begins[0])) {
-				transform(begins.begin(), begins.end(), begins.begin(), ::toupper);
+				transform(begins.begin(), begins.end(), begins.begin(), ::
+toupper);
 				bb = li == 3 ? Month_name[begins] : Week_name[begins];
 			}
 			else {
 				bb = atoi(begins.c_str());
 			}
 			if (isalpha(ends[0])) {
-				transform(ends.begin(), ends.end(), ends.begin(), ::toupper);
+				transform(ends.begin(), ends.end(), ends.begin(), ::touppe
+r);
 				cc = li == 3 ? Month_name[ends] : Week_name[ends];
 
 			}
@@ -103,10 +106,12 @@ void read_parts(string &parts, int li) {
 		else {
 			if (isalpha(sin[0])) { //month
 				transform(sin.begin(), sin.end(), sin.begin(), ::toupper);
-				group[li].push_back(li == 3 ? Month_name[sin] : Week_name[sin]);
+				group[li].push_back(li == 3 ? Month_name[sin] : Week_name[
+sin]);
 			}
 			else {
-				sin == "*" ? group[li].push_back(-1) : group[li].push_back(atoi(sin.c_str()));
+				sin == "*" ? group[li].push_back(-1) : group[li].push_back
+(atoi(sin.c_str()));
 			}
 		}
 		loc_head = loc_last + 1;
@@ -170,8 +175,8 @@ void read_command(int order) {
 		group[inc].clear();
 
 	int loc_head = 0, loc_last = 0;
-	
 	int li = 0;
+	bool flg = false;
 	string commands;
 	while (loc_head < len) {
 		loc_last = commline.find(' ', loc_head + 1);
@@ -198,33 +203,45 @@ void read_command(int order) {
 	for (int years = be_y; years <= en_y; years ++) { //yyyy
 		bool _is_leap = is_leapyear(years);
 
-		for (IT mon_it = group[3].begin(); mon_it != group[3].end(); mon_it ++) { //mm
-			if (group[2].back() == -1) {
+		for (IT mon_it = group[3].begin(); mon_it != group[3].end(); mon_it ++) { 
+//mm
+			if (group[2].back() == -1 || flg) {
 				group[2].clear();
+				flg = true;
 				int level = mon_list[*mon_it - 1];
 				if (*mon_it == 2) level += _is_leap;
 				for (int num = 1; num <= level; num ++)
 					group[2].push_back(num);
 			}
 
-			for (IT day_it = group[2].begin(); day_it != group[2].end(); day_it ++) { //dd
+			for (IT day_it = group[2].begin(); day_it != group[2].end(); day_i
+t ++) { //dd
 					if (week_pick(years, *mon_it, *day_it)) 
 						continue;	
 
-					for (IT hour_it = group[1].begin(); hour_it != group[1].end(); hour_it ++) { //HH
+					for (IT hour_it = group[1].begin(); hour_it != gro
+up[1].end(); hour_it ++) { //HH
 						
-						for (IT min_it = group[0].begin(); min_it != group[0].end(); min_it ++) { //MM
- 							string lines = int_to_string(years);
- 							if (*mon_it < 10) lines.append("0");
+						for (IT min_it = group[0].begin(); min_it 
+!= group[0].end(); min_it ++) { //MM
+ 							string lines = int_to_string(years
+);
+ 							if (*mon_it < 10) lines.append("0"
+);
  							lines += int_to_string(*mon_it);
- 							if (*day_it < 10) lines.append("0");
+ 							if (*day_it < 10) lines.append("0"
+);
  							lines += int_to_string(*day_it);
- 							if (*hour_it < 10) lines.append("0");
+ 							if (*hour_it < 10) lines.append("0
+");
  							lines += int_to_string(*hour_it);
- 							if (*min_it < 10) lines.append("0");
+ 							if (*min_it < 10) lines.append("0"
+);
  							lines += int_to_string(*min_it);
-							if (lines >= begin_ && lines < end_)
-							records[Commandline(lines, order)] = commands;
+							if (lines >= begin_ && lines < end
+_)
+							records[Commandline(lines, order)]
+ = commands;
 							//MM
 						}
 						
@@ -256,7 +273,8 @@ void read_process() {
 		read_command(order);
 	}
 
-	for (map<Commandline, string>::iterator ans = records.begin(); ans != records.end(); ans ++) {
+	for (map<Commandline, string>::iterator ans = records.begin(); ans != records.end(
+); ans ++) {
 		printf ("%s %s\n", (ans->first).line.c_str(), (ans->second).c_str());
 	}
 
